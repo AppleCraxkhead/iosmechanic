@@ -15,13 +15,15 @@ public class command_line {
                 stdin.nextLine();
                 continue;
             }
-            System.out.println(connectedDevice + "\n\n\n");
+            System.out.println(connectedDevice + "\n");
             System.out.println("Please choose an option:\n1: Display UDID \n2:Shut Down\n3: Restart\n4: Display Activation State\n0: Quit");
             int choice = stdin.nextInt();
             stdin.nextLine();
+            System.out.println("----------------");
             if(choice ==1){
             String message = "UDID for " + connectedDevice + ": " + deviceManager.getFromDeviceInfo("UniqueDeviceID");
-            System.out.println(message);
+            System.out.println(message +"\n Press ENTER to continue");
+            stdin.nextLine();
                 }
             if(choice == 4){
                 String message = "This device is " + deviceManager.getFromDeviceInfo("ActivationState");

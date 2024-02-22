@@ -29,7 +29,7 @@ public class DeviceManager {
             });
             int exitCode = process.waitFor();
             if(exitCode != 0){
-                System.out.println("Exited with error code " + exitCode);
+                System.out.println("Error code " + exitCode);
             }
             return parsedData;
             /*while ((line = reader.readLine()) != null) {
