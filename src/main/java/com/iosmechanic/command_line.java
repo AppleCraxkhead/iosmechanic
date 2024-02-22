@@ -16,16 +16,31 @@ public class command_line {
                 continue;
             }
             System.out.println(connectedDevice + "\n");
-            System.out.println("Please choose an option:\n1: Display UDID \n2:Shut Down\n3: Restart\n4: Display Activation State\n0: Quit");
+            System.out.println("Select an option:\n1: Display UDID \n2:Device Actions\n3: Display Activation Status\n0: Quit");
             int choice = stdin.nextInt();
             stdin.nextLine();
             System.out.println("----------------");
             if(choice ==1){
-            String message = "UDID for " + connectedDevice + ": " + deviceManager.getFromDeviceInfo("UniqueDeviceID");
-            System.out.println(message +"\n Press ENTER to continue");
-            stdin.nextLine();
+                String message = "UDID for " + connectedDevice + ": " + deviceManager.getFromDeviceInfo("UniqueDeviceID");
+                System.out.println(message +"\n Press ENTER to continue");
+                stdin.nextLine();
                 }
-            if(choice == 4){
+            if(choice == 2){
+                System.out.println("DEVICE ACTIONS FOR: " + connectedDevice + "\n----------------");
+                System.out.println("Select a Device Action\n1:Restart");
+                int actionChoice = stdin.nextInt();
+                stdin.nextLine();
+                if(actionChoice == 1){
+                    System.out.println("Restarting " + connectedDevice + "...");
+                    deviceManager.performDeviceActions("idevicediagnostics", "restart");
+                    System.out.println("Press ENTER to continue");
+                    stdin.nextLine();
+                }
+
+
+            }
+
+            if(choice == 3){
                 String message = "This device is " + deviceManager.getFromDeviceInfo("ActivationState");
                 System.out.println(message + "\n\nPress ENTER to continue");
                 stdin.nextLine();

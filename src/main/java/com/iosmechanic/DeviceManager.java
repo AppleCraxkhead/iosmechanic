@@ -1,6 +1,9 @@
 package com.iosmechanic;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DeviceManager {
@@ -32,12 +35,6 @@ public class DeviceManager {
                 System.out.println("Error code " + exitCode);
             }
             return parsedData;
-            /*while ((line = reader.readLine()) != null) {
-                System.out.println(line); // Print or process the output as needed
-            }*/
-
-            // Wait for the process to complete
-            
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -48,5 +45,24 @@ public class DeviceManager {
         String result = parsedData.get(property);
         return result;
     }
+    public void performDeviceActions(String filename, String... arguments) {
+    try {
+        File executableFile = ResourceManager.extractExecutable(filename);
+        List<String> command = new ArrayList<>();
+        command.add(executableFile.getAbsolutePath());
+        Collections.addAll(command, arguments);
+        ProcessBuilder pb = new ProcessBuilder(command);
+        pb.redirectErrorStream(true);
+        pb.directory(executableFile.getParentFile());
+        Process process = pb.start();
+        int exitCode = process.waitFor();
+        if(exitCode != 0){
+            System.out.println("Error code " + exitCode);
+        }
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+
 }
 
